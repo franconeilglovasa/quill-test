@@ -8,6 +8,7 @@ import { QuillTestComponent } from './quill-test/quill-test.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
+    FormsModule,
     FlexLayoutModule, 
     BrowserAnimationsModule,
     QuillModule.forRoot()

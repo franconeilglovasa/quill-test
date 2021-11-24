@@ -1,14 +1,16 @@
-
-
 <div fxFlex>
+    <button (click)="quillclick(jsonString)">quill </button>
     <div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
-        <div fxFlex="50">
-            <quill-editor></quill-editor>
+        <!-- <input matInput placeholder="Placeholder" [(ngModel)]="jsonString" /> -->
+        <div fxFlex="100">
+            <quill-editor [modules]="modules" format="json" (onEditorCreated)="editorCreated($event)"
+                [(ngModel)]="jsonString" placeholder="Enter Text" (onSelectionChanged)="onSelectionChanged($event)"
+                >
+            </quill-editor>
         </div>
-        <div fxFlex="50">
+        <!-- <div fxFlex="50">
             <quill-editor></quill-editor>
-        </div>
+        </div> -->
 
     </div>
 </div>
-

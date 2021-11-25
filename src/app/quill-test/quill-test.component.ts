@@ -77,7 +77,6 @@ export class QuillTestComponent implements OnInit {
             console.log("base image" + ctr);
             //this.baseStrings.push(image64string);
 
-
           } else {
             console.log("url image" + ctr);
             let urltobase64Raw;

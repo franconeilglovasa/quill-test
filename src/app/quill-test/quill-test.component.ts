@@ -2,6 +2,11 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CompressImageService } from './compress-image.service';
 import { QuillVM } from './quilvm';
 
+import * as QuillNamespace from 'quill';
+let Quill: any = QuillNamespace;
+import ImageResize from 'quill-image-resize-module';
+Quill.register('modules/imageResize', ImageResize);
+
 @Component({
   selector: 'app-quill-test',
   templateUrl: './quill-test.component.html',
@@ -44,9 +49,10 @@ export class QuillTestComponent implements OnInit {
   }
   editorCreated(quill: any) { }
 
-  quillclick(jsonString: string) {
-    
-    let data: QuillVM = JSON.parse(jsonString);
+  quillclick() {
+    //console.log (this.jsonString);
+    let data = JSON.parse(this.jsonString);
+
     //console.log(data);
     //let baseStrings: string[] = [];
     this.baseStrings = [];
@@ -57,8 +63,14 @@ export class QuillTestComponent implements OnInit {
           console.log("has image in " + ctr);
           //console.log(data.ops[ctr].insert.image);
           let dataimage = data.ops[ctr].insert.image.split(",");
-          
-          data.ops[ctr].insert.image = "BASE 64 replaced image with address location here";
+
+          //data.ops[ctr].insert.image = "BASE 64 replaced image with address location here";
+          //console.log("before ", data.ops[ctr].insert.image.length);
+          console.log ("before ", this.calc_image_size(data.ops[ctr].insert.image));
+          let compressedImage = this.compressImage(dataimage);
+          //console.log ("compressed Image", compressedImage);
+          //console.log("after", compressedImage.length);
+          console.log("after  ", this.calc_image_size(compressedImage));
           if (dataimage[1]) {
             //console.log ("base 64 image");
             let image64string: string = dataimage[1];
@@ -135,6 +147,16 @@ export class QuillTestComponent implements OnInit {
     let ctx = canvas.getContext('2d')
     ctx.drawImage(img, 0, 0, width, height)
     var newString = canvas.toDataURL()
+    return newString;
+  }
+
+  calc_image_size(image) {
+    let y = 1;
+    if (image.endsWith("==")) {
+      y = 2
+    }
+    const x_size = (image.length * (3 / 4)) - y
+    return Math.round(x_size / 1024)
   }
 
 }

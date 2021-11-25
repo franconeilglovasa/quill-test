@@ -1,5 +1,5 @@
 <div fxFlex>
-    <button (click)="quillclick(jsonString)">quill </button>
+    <button (click)="quillclick()">quill </button>
     <div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
         <!-- <input matInput placeholder="Placeholder" [(ngModel)]="jsonString" /> -->
         <div fxFlex="100">
@@ -8,9 +8,9 @@
                 >
             </quill-editor>
         </div>
-        <!-- <div fxFlex="50">
-            <quill-editor></quill-editor>
-        </div> -->
+        <div fxFlex="50">
+            <textarea rows="4" matInput [(ngModel)]="jsonString"></textarea>
+        </div>
 
     </div>
 </div>

@@ -1,16 +1,25 @@
 <div fxFlex>
-    <button (click)="quillclick()">quill </button>
+    <!-- <button (click)="quillclick()">quill </button>
+    <button (click)="quillclickURL(jsonString)">QuillURL </button>
+    <button (click)="urlAndLocalClick(jsonString)">url And Local </button> -->
+    <!-- <button (click)="pasteImageAndCompress(jsonString)">intercept and compress </button> -->
     <div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
         <!-- <input matInput placeholder="Placeholder" [(ngModel)]="jsonString" /> -->
-        <div fxFlex="100">
+        <div fxFlex="50">
             <quill-editor [modules]="modules" format="json" (onEditorCreated)="editorCreated($event)"
                 [(ngModel)]="jsonString" placeholder="Enter Text" (onSelectionChanged)="onSelectionChanged($event)"
+                (onContentChanged)="cChange($event)"
                 >
             </quill-editor>
         </div>
         <div fxFlex="50">
+            <!-- <quill-editor [modules]="modules" format="json"
+                [(ngModel)]="jsonStringCompressed" placeholder="Enter Text"
+                >
+            </quill-editor> -->
             <textarea rows="4" matInput [(ngModel)]="jsonString"></textarea>
         </div>
+        
 
     </div>
 </div>

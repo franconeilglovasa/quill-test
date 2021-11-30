@@ -206,6 +206,7 @@ export class QuillTestComponent implements OnInit {
   // }
 
   compressImage(base64Str, MAX_WIDTH = 450, MAX_HEIGHT = 450) {
+    console.log ("base 64 before compressed", base64Str);
     let img = new Image();
     img.src = base64Str
     let canvas = document.createElement('canvas')
@@ -228,6 +229,7 @@ export class QuillTestComponent implements OnInit {
     let ctx = canvas.getContext('2d')
     ctx.drawImage(img, 0, 0, width, height)
     var newString = canvas.toDataURL()
+    console.log ("new string compressed", newString);
     return newString;
   }
 
@@ -269,7 +271,7 @@ export class QuillTestComponent implements OnInit {
     let ops: Op[] = [];
     //console.log (ops);
 
-    if (data.ops.length > 0) {
+    if (data.ops.length > 0 ) {
       for (let ctr = 0; ctr < data.ops.length; ctr++) {
 
         //if data has image
@@ -311,7 +313,7 @@ export class QuillTestComponent implements OnInit {
     let ops : Op [] = [];
     for (var ctr=0; ctr<event.content.ops.length; ctr++) {
       ops.push(event.content.ops[ctr]);
-      //console.log(event.content.ops[ctr]);
+      console.log("event content", event.content.ops[ctr]);
     }
     //console.log (ops);
     jsonTemp.ops = ops;
@@ -321,6 +323,51 @@ export class QuillTestComponent implements OnInit {
     this.ImageCompress(jsonTemp);
   }
 
+
+  ImageCompress2(jsonstring : string ) {
+
+    let data: QuillTypesVM = JSON.parse(jsonstring);
+    //let data: QuillTypesVM = jsonData;
+    let jsonTemp: QuillTypesVM = new QuillTypesVM();
+
+    console.log ("data", data);
+
+    let ops: Op[] = [];
+    //console.log (ops);
+
+    if (data.ops.length > 0 ) {
+      for (let ctr = 0; ctr < data.ops.length; ctr++) {
+
+        //if data has image
+        if (data.ops[ctr].insert.image) {
+          let dataimage = data.ops[ctr].insert.image.split(",");
+          let compressedImage;
+          //if picture (not from url)
+          if (dataimage[1]) {
+            //get the size and compress if the size is greater than 400kb
+            const size = this.calc_image_size(data.ops[ctr].insert.image)
+            if (size > 400) {
+              compressedImage = this.compressImage(data.ops[ctr].insert.image);
+            } else {
+              console.log ("no compress", data.ops[ctr].insert.image);
+              compressedImage = data.ops[ctr].insert.image;
+            }
+            data.ops[ctr].insert.image = compressedImage;
+          }
+        }
+
+        //storetoJsonTemp
+        ops.push(data.ops[ctr]);
+      }
+      jsonTemp.ops = ops;
+      this.jsonString = JSON.stringify(jsonTemp);
+    } else {
+      //not enough object return the same json string
+      this.jsonString = JSON.stringify(data);
+    }
+ 
+
+  }
 
 
 }

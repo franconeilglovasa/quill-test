@@ -6,9 +6,9 @@
     <div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
         <!-- <input matInput placeholder="Placeholder" [(ngModel)]="jsonString" /> -->
         <div fxFlex="50">
-            <quill-editor [modules]="modules" format="json" (onEditorCreated)="editorCreated($event)"
+            <quill-editor [modules]="editorModules" format="json" (onEditorCreated)="editorCreated($event)"
                 [(ngModel)]="jsonString" placeholder="Enter Text" (onSelectionChanged)="onSelectionChanged($event)"
-                (onContentChanged)="cChange($event)"
+                
                 >
             </quill-editor>
         </div>

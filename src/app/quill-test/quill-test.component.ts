@@ -17,8 +17,31 @@ Quill.register('modules/imageResize', ImageResize);
 export class QuillTestComponent implements OnInit {
 
   @ViewChild('imgRenderer') imgRenderer: ElementRef;
+  @ViewChild('quillFile') quillFileRef: ElementRef;
 
+  quillFile: any;
+  meQuillRef: any;
 
+  editorModules = {
+    toolbar: {
+      container: [
+        [{ font: [] }],
+        [{ size: ['small', false, 'large', 'huge'] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ header: 1 }, { header: 2 }],
+        [{ color: [] }, { background: [] }],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        [{ align: [] }],
+        ['link', 'image']
+      ],
+      handlers: {
+        image: (image) => {
+          this.customImageUpload(image);
+        }
+      }
+    },
+    imageResize: true,
+  };
 
   modules = {
     toolbar: [
@@ -56,6 +79,18 @@ export class QuillTestComponent implements OnInit {
     //console.log (jsonData);
     //this.pasteImageAndCompress(jsonData);
   }
+
+
+  customImageUpload(image: any) {
+    console.log("here", image);
+    /* Here we trigger a click action on the file input field, this will open a file chooser on a client computer */
+    this.quillFileRef.nativeElement.click();
+  }
+
+
+
+
+
   editorCreated(quill: any) { }
 
   // quillclick() {

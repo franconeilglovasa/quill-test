@@ -9,7 +9,7 @@
             <quill-editor [modules]="editorModules" format="json" (onEditorCreated)="editorCreated($event)"
                 [(ngModel)]="jsonString" placeholder="Enter Text" (onSelectionChanged)="onSelectionChanged($event)">
 
-                <!-- <div quill-editor-toolbar>
+                <div quill-editor-toolbar>
                   <span class="ql-formats">
                     <button type="button" class="ql-bold"><svg viewBox="0 0 18 18"> <path class="ql-stroke" d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"></path> <path class="ql-stroke" d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"></path> </svg></button>
                     <button class="ql-italic"><svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -42,9 +42,20 @@
               
                     <select class="ql-background" [title]="'BackgroundColor'">
                     </select>
+                    <select class="ql-color" [title]="'Char color'">
+                    </select>
+                    <select class="ql-background" [title]="'Bg color'">
+                    </select>
+                    <select class="ql-size">
+                      <option value="small"></option>
+                      <!-- Note a missing, thus falsy value, is used to reset to default -->
+                      <option selected></option>
+                      <option value="large"></option>
+                      <option value="huge"></option>
+                    </select>
                   </span>
                  
-                </div> -->
+                </div>
             </quill-editor>
         </div>
         <div fxFlex="50">

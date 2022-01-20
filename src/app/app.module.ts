@@ -24,7 +24,12 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     FlexLayoutModule, 
     BrowserAnimationsModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot({
+      customOptions: [{
+        import: 'formats/font',
+        whitelist: ['mirza', 'roboto', 'aref', 'calibri','serif', 'sansserif', 'monospace']
+      }]
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

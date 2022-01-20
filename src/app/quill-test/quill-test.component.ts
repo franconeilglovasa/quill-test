@@ -22,6 +22,7 @@ export class QuillTestComponent implements OnInit {
   quillFile: any;
   meQuillRef: any;
 
+
   editorModules = {
     toolbar: {
       container: [
@@ -34,11 +35,11 @@ export class QuillTestComponent implements OnInit {
         [{ align: [] }],
         ['link', 'image']
       ],
-      handlers: {
-        image: (image) => {
-          this.customImageUpload(image);
-        }
-      }
+      // handlers: {
+      //   image: (image) => {
+      //     this.customImageUpload(image);
+      //   }
+     // }
     },
     imageResize: true,
   };
@@ -93,152 +94,153 @@ export class QuillTestComponent implements OnInit {
 
   editorCreated(quill: any) { }
 
-  // quillclick() {
-  //   //console.log (this.jsonString);
-  //   let data = JSON.parse(this.jsonString);
+  quillclick() {
+    //console.log (this.jsonString);
+    let data = JSON.parse(this.jsonString);
 
-  //   //console.log(data);
-  //   //let baseStrings: string[] = [];
-  //   this.baseStrings = [];
+    //console.log(data);
+    //let baseStrings: string[] = [];
+    this.baseStrings = [];
 
-  //   if (data.ops.length > 1) {
-  //     for (let ctr = 0; ctr < data.ops.length; ctr++) {
-  //       if (data.ops[ctr].insert.image) {
-  //         console.log("has image in " + ctr);
-  //         console.log(data.ops[ctr].insert.image);
-  //         let dataimage = data.ops[ctr].insert.image.split(",");
+    if (data.ops.length > 1) {
+      for (let ctr = 0; ctr < data.ops.length; ctr++) {
+        if (data.ops[ctr].insert.image) {
+          console.log("has image in " + ctr);
+          console.log("picture raw", data.ops[ctr].insert.image);
+          let dataimage = data.ops[ctr].insert.image.split(",");
+          console.log ("dataimage", dataimage);
 
-  //         //data.ops[ctr].insert.image = "BASE 64 replaced image with address location here";
-  //         //console.log("before ", data.ops[ctr].insert.image.length);
-  //         console.log("before ", this.calc_image_size(data.ops[ctr].insert.image));
-  //         let compressedImage = this.compressImage(dataimage);
-  //         //console.log ("compressed Image", compressedImage);
-  //         //console.log("after", compressedImage.length);
-  //         console.log("after  ", this.calc_image_size(compressedImage));
-  //         if (dataimage[1]) {
-  //           //console.log ("base 64 image");
-  //           let image64string: string = dataimage[1];
-  //           console.log("base image" + ctr);
-  //           //this.baseStrings.push(image64string);
+          //data.ops[ctr].insert.image = "BASE 64 replaced image with address location here";
+          //console.log("before ", data.ops[ctr].insert.image.length);
+          console.log("before ", this.calc_image_size(data.ops[ctr].insert.image));
+          let compressedImage = this.compressImage(dataimage);
+          //console.log ("compressed Image", compressedImage);
+          //console.log("after", compressedImage.length);
+          console.log("after  ", this.calc_image_size(compressedImage));
+          if (dataimage[1]) {
+            //console.log ("base 64 image");
+            let image64string: string = dataimage[1];
+            console.log("base image" + ctr);
+            //this.baseStrings.push(image64string);
 
-  //         } else {
-  //           console.log("url image" + ctr);
-  //           let urltobase64Raw;
-  //           let hrefloc = data.ops[ctr].insert.image;
-  //           data.ops[ctr].insert.image = "HTML LINK: replaced image with address location here";
-  //           if (hrefloc.includes("http")) {
-  //             var ddata = this.imageToBase(hrefloc, function (imageToBase, anothercall) {
-  //               //console.log("Else url to Base64", imageToBase);
-  //               urltobase64Raw = imageToBase;
-  //               this.baseStrings.push(urltobase64Raw);
-  //               return anothercall(urltobase64Raw);
-  //               //console.log ("url to Base64", urltobase64Raw);
-  //               // let dataimagelse = urltobase64Raw.split(",");
-  //               // if (dataimagelse[1]) {
-  //               //   //console.log ("else base 64 image");
-  //               //   let image64string: string = dataimagelse[1];
-  //               //   //console.log("Base 64 Image", image64string);
-  //               // }
-  //             });
-  //             console.log(ddata);
-  //           }
+          } else {
+            console.log("url image" + ctr);
+            let urltobase64Raw;
+            let hrefloc = data.ops[ctr].insert.image;
+            data.ops[ctr].insert.image = "HTML LINK: replaced image with address location here";
+            if (hrefloc.includes("http")) {
+              var ddata = this.imageToBase(hrefloc, function (imageToBase, anothercall) {
+                //console.log("Else url to Base64", imageToBase);
+                urltobase64Raw = imageToBase;
+                this.baseStrings.push(urltobase64Raw);
+                return anothercall(urltobase64Raw);
+                //console.log ("url to Base64", urltobase64Raw);
+                // let dataimagelse = urltobase64Raw.split(",");
+                // if (dataimagelse[1]) {
+                //   //console.log ("else base 64 image");
+                //   let image64string: string = dataimagelse[1];
+                //   //console.log("Base 64 Image", image64string);
+                // }
+              });
+              console.log(ddata);
+            }
 
-  //         }
+          }
 
-  //       }
-  //     }
-  //   }
-  //   console.log(this.baseStrings);
-  //   console.log(data.ops);
-  // }
-
-
-  // quillclickURL(jsonstring: string) {
-
-  //   let data: QuillVM = JSON.parse(jsonstring);
-  //   //console.log(data);
-
-  //   if (data.ops.length > 1) {
-  //     for (let ctr = 0; ctr < data.ops.length; ctr++) {
-  //       if (data.ops[ctr].insert.image) {
-
-  //         console.log("url image");
-  //         let urltobase64Raw;
-  //         let hrefloc = data.ops[ctr].insert.image;
-
-  //         //data.ops[ctr].insert.image = "HTML LINK: replaced image with address location here";
-  //         console.log(hrefloc);
-  //         if (hrefloc.includes("http")) {
-  //           this.getImageFromUrl(hrefloc);
-  //         }
-  //       }
-  //     }
-  //   }
-  //   //console.log(data.ops);
-  //   console.log(this.baseStrings);
-  // }
-
-  // urlAndLocalClick(jsonstring: string) {
-  //   this.baseStrings = [];
-
-  //   let data: QuillVM = JSON.parse(jsonstring);
-  //   //process the url here
-  //   if (data.ops.length > 1) {
-  //     for (let ctr = 0; ctr < data.ops.length; ctr++) {
-  //       if (data.ops[ctr].insert.image) {
-
-  //         console.log("url image");
-  //         let hrefloc = data.ops[ctr].insert.image;
-
-  //         console.log(hrefloc);
-  //         if (hrefloc.includes("http")) {
-  //           this.getImageFromUrl(hrefloc);
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   this.baseStrings = [];
-
-  //   if (data.ops.length > 1) {
-  //     for (let ctr = 0; ctr < data.ops.length; ctr++) {
-  //       if (data.ops[ctr].insert.image) {
-
-  //         let dataimage = data.ops[ctr].insert.image.split(",");
-
-  //         let compressedImage = this.compressImage(dataimage);
-  //         console.log("compressed image", compressedImage);
-
-  //         if (dataimage[1]) {
-  //           let image64string: string = dataimage[1];
-  //           this.baseStrings.push(image64string);
-
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   console.log(this.baseStrings);
-  // }
+        }
+      }
+    }
+    console.log(this.baseStrings);
+    console.log(data.ops);
+  }
 
 
+  quillclickURL(jsonstring: string) {
 
-  // imageToBase(url: string, callback) {
-  //   //let urlTest = "https://pbs.twimg.com/profile_images/558329813782376448/H2cb-84q_400x400.jpeg";
+    let data: QuillTypesVM = JSON.parse(jsonstring);
+    console.log(data);
 
-  //   var xhr = new XMLHttpRequest();
-  //   xhr.onload = function () {
-  //     var reader = new FileReader();
-  //     reader.onloadend = function () {
-  //       callback(reader.result);
-  //     }
-  //     reader.readAsDataURL(xhr.response);
-  //   };
-  //   xhr.open('GET', url);
-  //   xhr.responseType = 'blob';
-  //   xhr.send();
-  //   //console.log (callback);
-  // }
+    if (data.ops.length > 1) {
+      for (let ctr = 0; ctr < data.ops.length; ctr++) {
+        if (data.ops[ctr].insert.image) {
+
+          console.log("url image");
+          let urltobase64Raw;
+          let hrefloc = data.ops[ctr].insert.image;
+
+          //data.ops[ctr].insert.image = "HTML LINK: replaced image with address location here";
+          console.log(hrefloc);
+          if (hrefloc.includes("http")) {
+            this.getImageFromUrl(hrefloc);
+          }
+        }
+      }
+    }
+    //console.log(data.ops);
+    console.log(this.baseStrings);
+  }
+
+  urlAndLocalClick(jsonstring: string) {
+    this.baseStrings = [];
+
+    let data: QuillTypesVM = JSON.parse(jsonstring);
+    //process the url here
+    if (data.ops.length > 1) {
+      for (let ctr = 0; ctr < data.ops.length; ctr++) {
+        if (data.ops[ctr].insert.image) {
+
+          console.log("url image");
+          let hrefloc = data.ops[ctr].insert.image;
+
+          console.log(hrefloc);
+          if (hrefloc.includes("http")) {
+            this.getImageFromUrl(hrefloc);
+          }
+        }
+      }
+    }
+
+    this.baseStrings = [];
+
+    if (data.ops.length > 1) {
+      for (let ctr = 0; ctr < data.ops.length; ctr++) {
+        if (data.ops[ctr].insert.image) {
+
+          let dataimage = data.ops[ctr].insert.image.split(",");
+
+          let compressedImage = this.compressImage(dataimage);
+          console.log("compressed image", compressedImage);
+
+          if (dataimage[1]) {
+            let image64string: string = dataimage[1];
+            this.baseStrings.push(image64string);
+
+          }
+        }
+      }
+    }
+
+    console.log(this.baseStrings);
+  }
+
+
+
+  imageToBase(url: string, callback) {
+    //let urlTest = "https://pbs.twimg.com/profile_images/558329813782376448/H2cb-84q_400x400.jpeg";
+
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        callback(reader.result);
+      }
+      reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+    //console.log (callback);
+  }
 
   compressImage(base64Str, MAX_WIDTH = 450, MAX_HEIGHT = 450) {
     console.log ("base 64 before compressed", base64Str);

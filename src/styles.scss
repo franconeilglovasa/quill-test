@@ -7,4 +7,48 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
- 
+
+
+
+ /* Set dropdown font-families */
+ [quill-editor-toolbar] .ql-font span[data-label="Aref Ruqaa"]::before {
+  font-family: "Aref Ruqaa";
+}
+
+[quill-editor-toolbar] .ql-font span[data-label="Mirza"]::before {
+  font-family: "Mirza";
+}
+
+[quill-editor-toolbar] .ql-font span[data-label="Roboto"]::before {
+  font-family: "Roboto";
+}
+
+[quill-editor-toolbar] .ql-font span[data-label="Serif"]::before {
+  font-family: "Serif";
+}
+
+[quill-editor-toolbar] .ql-font span[data-label="Calibri"]::before {
+  font-family: "Calibri";
+}
+
+/* Set content font-families */
+
+.ql-font-mirza {
+  font-family: "Mirza";
+}
+
+.ql-font-aref {
+  font-family: "Aref Ruqaa";
+}
+
+.ql-font-roboto {
+  font-family: "Roboto";
+}
+
+.ql-font-serif {
+  font-family: "Serif";
+}
+
+.ql-font-calibri {
+  font-family: "Calibri";
+}
